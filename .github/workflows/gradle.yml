@@ -27,7 +27,7 @@ jobs:
         distribution: 'adopt'
         
     - name: build and push
-      run: ./hello-app/gradlew clean jib --image youthconpso/hello:latest \                                                                                                                                ✔  38s  00:06:18 
+      run: gradle clean jib --image youthconpso/hello:latest \                                                                                                                                ✔  38s  00:06:18 
             -Djib.to.auth.username=${{secrets.DUSER}} \
             -Djib.to.auth.password=${{secrets.DPWD}}
 
