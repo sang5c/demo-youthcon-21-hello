@@ -28,10 +28,10 @@ jobs:
         
     - name: build and push
       run: |
-        gradle clean jib --image youthconpso/hello:latest \                                                                                                                                ✔  38s  00:06:18 
+        gradle clean jib --image youthconpso/hello:latest \
         -Djib.to.auth.username=${{secrets.DUSER}} \
         -Djib.to.auth.password=${{secrets.DPWD}}
-
+        
 #     - name: Build with Gradle
 #       uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
 #       with:
