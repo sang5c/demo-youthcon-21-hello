@@ -38,7 +38,7 @@ jobs:
     - name: create tag with sha
       id: tag
       run: |
-        V_TAG=$($GITHUB_SHA | cut -c1-4)
+        V_TAG=$(echo ${{ github.sha }} | cut -c1-4)
         echo "::set-output name=VTAG::$V_TAG"
 
     # https://github.com/actions/checkout
