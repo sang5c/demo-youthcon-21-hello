@@ -26,13 +26,29 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         
-    - name: build and push
+    - name: application build and push
       run: |
         gradle clean jib --image youthconpso/hello:latest \
         -Djib.to.auth.username=${{secrets.DUSER}} \
         -Djib.to.auth.password=${{secrets.DPWD}}
-        
-#     - name: Build with Gradle
-#       uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
-#       with:
-#         arguments: build
+
+    # https://github.com/marketplace/actions/setup-kustomize
+    - name: setup kustomize
+      uses: imranismail/setup-kustomize@v1
+
+    # https://github.com/actions/checkout
+    - name: checkout config repo
+      uses: actions/checkout@v2
+      with: 
+        repository: sang5c/demo-youthcon-21-config
+        token: ${{ secrets.ACCESS_TOKEN }}
+        path: test-path
+    
+    - name: config commit and push
+      run: |
+          cd test-path
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "update image"
+          git push
