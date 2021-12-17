@@ -34,11 +34,11 @@ jobs:
     - name: setup kustomize
       uses: imranismail/setup-kustomize@v1
 
-    - name: echo sha
-      run: |
-        V_TAG=$($GITHUB_SHA | cut -c1-4)
-        echo $GITHUB_SHA | cut -c1-4
-        echo $V_TAG
+#     - name: echo sha
+#       run: |
+#         V_TAG=$($GITHUB_SHA | cut -c1-4)
+#         echo $GITHUB_SHA | cut -c1-4
+#         echo $V_TAG
 
     # https://github.com/actions/checkout
     - name: checkout config repo
@@ -50,7 +50,7 @@ jobs:
     
     - name: run kustomize
       run: |
-          ls
+          V_TAG=$($GITHUB_SHA | cut -c1-4)
           cd demo-youthcon-21-config/overlays/sample/
           kustomize edit set image youthconpso/hello=youthconpso/hello:$V_TAG
           cat kustomization.yml
