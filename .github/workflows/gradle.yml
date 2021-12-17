@@ -32,6 +32,9 @@ jobs:
         -Djib.to.auth.username=${{secrets.DUSER}} \
         -Djib.to.auth.password=${{secrets.DPWD}}
 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
     # https://github.com/marketplace/actions/setup-kustomize
     - name: setup kustomize
       uses: imranismail/setup-kustomize@v1
