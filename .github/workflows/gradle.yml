@@ -53,7 +53,7 @@ jobs:
           ls
           cd demo-youthcon-21-config/overlays/sample/
           kustomize edit set image hello:${{ env.V_TAG }}
-          cat kustomization.yaml
+          cat kustomization.yml
     
     - name: config commit and push
       run: |
