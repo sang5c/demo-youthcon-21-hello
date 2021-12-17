@@ -52,7 +52,7 @@ jobs:
       run: |
           V_TAG=$($GITHUB_SHA | cut -c1-4)
           cd demo-youthcon-21-config/overlays/sample/
-          kustomize edit set image youthconpso/hello=youthconpso/hello:$V_TAG
+          kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
           cat kustomization.yml
     
     - name: config commit and push
