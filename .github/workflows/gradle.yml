@@ -37,9 +37,10 @@ jobs:
     # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-output-parameter
     - name: create tag with sha
       id: tag
-      #         V_TAG=$($GITHUB_SHA | cut -c1-4)        echo $V_TAG
       run: |
-        echo "::set-output name=VTAG::$($GITHUB_SHA | cut -c1-4)"
+        V_TAG=$($GITHUB_SHA | cut -c1-4)        
+        echo $V_TAG
+        echo "::set-output name=VTAG::$V_TAG"
 
     # https://github.com/actions/checkout
     - name: checkout config repo
