@@ -29,11 +29,13 @@ jobs:
     - name: application build and push
       run: |
         gradle clean jib --image youthconpso/hello:latest \
-        -Djib.to.auth.username=${{secrets.DUSER}} \
-        -Djib.to.auth.password=${{secrets.DPWD}}
+        -Djib.to.auth.username=${{ secrets.DUSER }} \
+        -Djib.to.auth.password=${{ secrets.DPWD }}
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
+    
     steps:
     # https://github.com/marketplace/actions/setup-kustomize
     - name: setup kustomize
