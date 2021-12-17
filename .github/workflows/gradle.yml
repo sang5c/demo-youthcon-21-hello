@@ -46,17 +46,18 @@ jobs:
       with: 
         repository: sang5c/demo-youthcon-21-config
         token: ${{ secrets.ACCESS_TOKEN }}
-        path: test-path
+        path: demo-youthcon-21-config
     
     - name: run kustomize
       run: |
-          cd test-path/overlays/dev/
+          ls
+          cd demo-youthcon-21-config/overlays/sample/
           kustomize edit set image hello:${{ env.V_TAG }}
           cat kustomization.yaml
     
     - name: config commit and push
       run: |
-          cd test-path
+          cd demo-youthcon-21-config
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
