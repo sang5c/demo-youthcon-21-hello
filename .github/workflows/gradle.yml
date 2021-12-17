@@ -35,11 +35,16 @@ jobs:
       uses: imranismail/setup-kustomize@v1
 
     # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-output-parameter
-    - name: create tag with sha
-      id: tag
-      run: |
-        V_TAG=$(echo ${{ github.sha }} | cut -c1-4)
-        echo "::set-output name=VTAG::$V_TAG"
+#     - name: create tag with sha
+#       id: tag
+#       run: |
+#         V_TAG=$(echo ${{ github.sha }} | cut -c1-4)
+#         echo "::set-output name=VTAG::$V_TAG"
+
+    - name: Set env
+      run: echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+    - name: Test
+      run: echo $V_TAG
 
     # https://github.com/actions/checkout
     - name: checkout config repo
@@ -52,7 +57,7 @@ jobs:
     - name: run kustomize
       run: |
           cd demo-youthcon-21-config/overlays/sample/
-          kustomize edit set image youthconpso/hello=youthconpso/hello:${{ steps.tag.outputs.VTAG }}
+          kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
           cat kustomization.yml
     
     - name: config commit and push
