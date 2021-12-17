@@ -51,7 +51,6 @@ jobs:
     
     - name: run kustomize
       run: |
-          V_TAG=$($GITHUB_SHA | cut -c1-4)
           cd demo-youthcon-21-config/overlays/sample/
           kustomize edit set image youthconpso/hello=youthconpso/hello:${{ steps.tag.outputs.VTAG }}
           cat kustomization.yml
