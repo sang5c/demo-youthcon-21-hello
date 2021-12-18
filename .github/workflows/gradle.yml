@@ -21,13 +21,16 @@ jobs:
 
 # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
     - name: set version tag
-      run: echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-
-    - name: application build and push
       run: |
-        gradle clean jib --image youthconpso/hello:${{ env.V_TAG }} \
-        -Djib.to.auth.username=${{ secrets.DUSER }} \
-        -Djib.to.auth.password=${{ secrets.DPWD }}
+        echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+        echo "ACTION: "
+        echo ${{ github.action }}
+
+#     - name: application build and push
+#       run: |
+#         gradle clean jib --image youthconpso/hello:${{ env.V_TAG }} \
+#         -Djib.to.auth.username=${{ secrets.DUSER }} \
+#         -Djib.to.auth.password=${{ secrets.DPWD }}
 
 
   deploy:
@@ -49,6 +52,8 @@ jobs:
     
     - name: run kustomize
       run: |
+          echo "ACTION: "
+          echo ${{ github.action }}
           cd demo-youthcon-21-config/overlays/sample/
           kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
           cat kustomization.yml
