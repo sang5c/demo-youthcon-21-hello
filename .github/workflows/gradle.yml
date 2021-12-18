@@ -19,13 +19,7 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-# # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
-#     - name: set version tag
-#       run: |
-#         echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-#         echo "ID: "
-#         echo ${{  }}
-
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
     - name: application build and push
       run: |
         gradle clean jib --image youthconpso/hello:${{ github.run_id }} \
