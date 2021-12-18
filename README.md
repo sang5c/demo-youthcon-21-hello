@@ -1,6 +1,5 @@
 # HELLO APP
 
-actions
 
 .github/workflow/actions.yml
 
