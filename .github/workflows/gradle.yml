@@ -19,18 +19,18 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-# https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
-    - name: set version tag
-      run: |
-        echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-        echo "ID: "
-        echo ${{ github.run_id }}
-
-#     - name: application build and push
+# # https://docs.github.com/en/actions/learn-github-actions/workflow-commands-for-github-actions#setting-an-environment-variable
+#     - name: set version tag
 #       run: |
-#         gradle clean jib --image youthconpso/hello:${{ env.V_TAG }} \
-#         -Djib.to.auth.username=${{ secrets.DUSER }} \
-#         -Djib.to.auth.password=${{ secrets.DPWD }}
+#         echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+#         echo "ID: "
+#         echo ${{  }}
+
+    - name: application build and push
+      run: |
+        gradle clean jib --image youthconpso/hello:${{ github.run_id }} \
+        -Djib.to.auth.username=${{ secrets.DUSER }} \
+        -Djib.to.auth.password=${{ secrets.DPWD }}
 
 
   deploy:
@@ -52,10 +52,8 @@ jobs:
     
     - name: run kustomize
       run: |
-        echo "ID: "
-        echo ${{ github.run_id }}
         cd demo-youthcon-21-config/overlays/sample/
-        kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
+        kustomize edit set image youthconpso/hello=youthconpso/hello:${{ github.run_id }}
         cat kustomization.yml
     
     - name: config commit and push
