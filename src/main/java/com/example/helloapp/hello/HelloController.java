@@ -15,6 +15,11 @@ public class HelloController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @GetMapping("/")
+    public String home() {
+        return "HELLO WORLD!";
+    }
+
     @GetMapping("/hello")
     public String hello() {
         log.info("call hello service");
