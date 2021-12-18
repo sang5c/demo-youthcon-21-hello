@@ -23,8 +23,8 @@ jobs:
     - name: set version tag
       run: |
         echo "V_TAG=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-        echo "ACTION: "
-        echo ${{ github.action }}
+        echo "ID: "
+        echo ${{ github.run_id }}
 
 #     - name: application build and push
 #       run: |
@@ -52,17 +52,17 @@ jobs:
     
     - name: run kustomize
       run: |
-          echo "ACTION: "
-          echo ${{ github.action }}
-          cd demo-youthcon-21-config/overlays/sample/
-          kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
-          cat kustomization.yml
+        echo "ID: "
+        echo ${{ github.run_id }}
+        cd demo-youthcon-21-config/overlays/sample/
+        kustomize edit set image youthconpso/hello=youthconpso/hello:${{ env.V_TAG }}
+        cat kustomization.yml
     
     - name: config commit and push
       run: |
-          cd demo-youthcon-21-config
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "update image"
-          git push
+        cd demo-youthcon-21-config
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add .
+        git commit -m "update image"
+        git push
