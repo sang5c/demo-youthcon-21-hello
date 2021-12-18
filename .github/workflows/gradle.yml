@@ -39,11 +39,12 @@ jobs:
     - name: checkout config repo
       uses: actions/checkout@v2
       with: 
-        repository: sang5c/demo-youthcon-21-config
+        repository: sang5c/demo-youthcon-21-config # TODO: 본인의 repository 변경 -> {username}/{repository}
         token: ${{ secrets.ACCESS_TOKEN }}
         path: demo-youthcon-21-config
     
     - name: run kustomize
+      # TODO: youthconpso를 본인의 dockerhub 경로로 변경
       run: |
         cd demo-youthcon-21-config/overlays/sample/
         kustomize edit set image youthconpso/hello=youthconpso/hello:${{ github.run_id }}
