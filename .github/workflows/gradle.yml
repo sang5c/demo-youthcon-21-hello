@@ -49,6 +49,7 @@ jobs:
         cd demo-youthcon-21-config/overlays/sample/
         kustomize edit set image youthconpso/hello=youthconpso/hello:${{ github.run_id }}
     
+    
     - name: config commit and push
       run: |
         cd demo-youthcon-21-config
